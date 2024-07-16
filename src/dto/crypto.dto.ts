@@ -1,8 +1,8 @@
 interface ITopCryptoCurrency {
   name: string;
   price: number;
-  variation24hs: number;
-  priceIn: "USD" | "ARS";
+  percentChange24h: number;
+  priceIn?: "USD" | "ARS";
 }
 
 export class TopCryptoCurrencyDTO {
@@ -10,15 +10,15 @@ export class TopCryptoCurrencyDTO {
 
   price: number;
 
-  variation24hs: number;
+  percentChange24h: number;
 
-  priceIn: "USD" | "ARS";
+  priceIn?: "USD" | "ARS";
 
   constructor(data: ITopCryptoCurrency) {
     this.name = data.name;
     this.price = data.price;
-    this.priceIn = data.priceIn;
-    this.variation24hs = data.variation24hs;
+    this.priceIn = data?.priceIn || "USD";
+    this.percentChange24h = data.percentChange24h;
   }
 }
 

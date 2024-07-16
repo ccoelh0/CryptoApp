@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 export default class HttpService {
   private basePath: string;
@@ -33,3 +33,8 @@ export default class HttpService {
     return this.httpInstance.put(`${this.basePath}${url}`, data, rest);
   }
 }
+
+export const isHttpError = axios.isAxiosError;
+
+export type HttpServiceType = typeof HttpService;
+export class HttpError extends AxiosError {}

@@ -4,6 +4,8 @@ import xss from "xss-clean";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 import routes from "./routes/index.routes";
+import ApiError from "./lib/apiError";
+import httpStatus from "http-status";
 
 const app = express();
 const port = 3000;
@@ -29,15 +31,9 @@ app.use(ExpressMongoSanitize());
 app.use(routes);
 
 // Send back a 404 error for any unknown api request
-// app.use((_req, _res, next) => {
-//   next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
-// });
-
-// // convert error to ApiError, if needed
-// app.use(errorConverter);
-
-// // handle error
-// app.use(errorHandler);
+app.use((_req, _res, next) => {
+  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
