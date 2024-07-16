@@ -1,11 +1,11 @@
-interface ITopCryptoCurrency {
+export interface ICurrencyDTO {
   name: string;
   price: number;
   percentChange24h: number;
   priceIn?: "USD" | "ARS";
 }
 
-export class TopCryptoCurrencyDTO {
+export class CryptoCurrencyDTO {
   name: string;
 
   price: number;
@@ -14,12 +14,10 @@ export class TopCryptoCurrencyDTO {
 
   priceIn?: "USD" | "ARS";
 
-  constructor(data: ITopCryptoCurrency) {
+  constructor(data: ICurrencyDTO) {
     this.name = data.name;
     this.price = data.price;
     this.priceIn = data?.priceIn || "USD";
     this.percentChange24h = data.percentChange24h;
   }
 }
-
-export interface ITopCurrencyDTO extends TopCryptoCurrencyDTO {}

@@ -1,6 +1,6 @@
 import { ICrypto } from "../interfaces";
 import http, { HttpServiceType, isHttpError } from "../config/http";
-import { ITopCurrencyDTO, TopCryptoCurrencyDTO } from "../dto/crypto.dto";
+import { ICurrencyDTO, CryptoCurrencyDTO } from "../dto/crypto.dto";
 import { handleError, HandleError } from "../lib/handleError";
 import ApiError from "../lib/apiError";
 import httpStatus from "http-status";
@@ -30,7 +30,7 @@ export default class CryptoService {
     };
   }
 
-  async getTopCryptoCurrencysInUSD(): Promise<ITopCurrencyDTO[]> {
+  async getTopCryptoCurrencysInUSD(): Promise<ICurrencyDTO[]> {
     const { HttpService } = this;
     const httpService = new HttpService(CRYPTO_URL);
 
@@ -55,7 +55,7 @@ export default class CryptoService {
       return cryptos.map(({ name, quote }) => {
         const { price, percent_change_24h: percentChange24h } = quote.USD;
 
-        return new TopCryptoCurrencyDTO({
+        return new CryptoCurrencyDTO({
           name,
           price,
           percentChange24h,
@@ -66,17 +66,17 @@ export default class CryptoService {
     }
   }
 
-  async getTopCryptoCurrencysInARS(): Promise<ITopCurrencyDTO[]> {
+  async getTopCryptoCurrencysInARS(): Promise<ICurrencyDTO[]> {
     const { HttpService } = this;
     const httpService = new HttpService(QUOTE_URL);
 
     const path = "/api/usdt/ars/1";
 
+    const cryptos = await this.getTopCryptoCurrencysInUSD();
+
     try {
       const { data } = await httpService.get<ICrypto.IQuote>(path);
       const { totalBid: quoteInArs } = data.tiendacrypto;
-
-      const cryptos = await this.getTopCryptoCurrencysInUSD();
 
       return cryptos.map((crypto) => ({
         ...crypto,
@@ -114,19 +114,19 @@ export default class CryptoService {
       const { name, quote } = cryptoFound;
       const { price, percent_change_24h: percentChange24h } = quote.USD;
 
-      return new TopCryptoCurrencyDTO({
+      return new CryptoCurrencyDTO({
         name,
         price,
         percentChange24h,
       });
     } catch (error: any) {
+      if (error instanceof ApiError) throw error;
+
       this.handleCryptoAPIError(error);
     }
   }
 
   private handleCryptoAPIError(err: any): never {
-    console.log(err);
-
     let message: string = "Internal server error";
     let statusCode: number = httpStatus.INTERNAL_SERVER_ERROR;
 

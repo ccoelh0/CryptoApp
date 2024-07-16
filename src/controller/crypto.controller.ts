@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import CryptoService from "../services/crypto.service";
-import { ITopCurrencyDTO } from "../dto/crypto.dto";
+import { ICurrencyDTO } from "../dto/crypto.dto";
 import config from "../config/config";
 import { tryCatch } from "../lib/handleError";
 
@@ -11,7 +11,7 @@ export const getTopCurrencysInUSD = tryCatch(
   async (_req: Request, res: Response) => {
     const cryptoService = new CryptoService(cryptoApiKey);
 
-    const currencys: ITopCurrencyDTO[] =
+    const currencys: ICurrencyDTO[] =
       await cryptoService.getTopCryptoCurrencysInUSD();
 
     res.status(httpStatus.OK).json(currencys);
@@ -22,7 +22,7 @@ export const getTopCurrencysInARS = tryCatch(
   async (_req: Request, res: Response) => {
     const cryptoService = new CryptoService(cryptoApiKey);
 
-    const currencys: ITopCurrencyDTO[] =
+    const currencys: ICurrencyDTO[] =
       await cryptoService.getTopCryptoCurrencysInARS();
 
     res.status(httpStatus.OK).json(currencys);
