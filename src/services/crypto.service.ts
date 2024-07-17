@@ -95,11 +95,12 @@ export default class CryptoService {
     const path = "/v1/cryptocurrency/quotes/latest";
     const params = { slug: name };
     const headers = this.setHeadersCryptoAPI();
+    const config = { params, headers };
 
     try {
       const { data: crypto } = await httpService.get<ICrypto.IGetCryptoByName>(
         path,
-        { params, headers }
+        config
       );
       const { data } = crypto;
       const cryptoId = Object.keys(data)[0];

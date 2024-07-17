@@ -4,11 +4,10 @@ import xss from "xss-clean";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 import routes from "./routes/index.routes";
-import ApiError from "./lib/apiError";
 import httpStatus from "http-status";
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // Set security HTTP headers
 app.use(helmet());
@@ -18,7 +17,7 @@ app.use(cors());
 app.options("*", cors());
 
 // Parse json request body
-app.use(express.json());
+// app.use(express.json());
 
 // Parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
@@ -31,8 +30,8 @@ app.use(ExpressMongoSanitize());
 app.use(routes);
 
 // Send back a 404 error for any unknown api request
-app.use((_req, _res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
+app.use((_req, res) => {
+  res.sendStatus(httpStatus.NOT_FOUND);
 });
 
 app.listen(port, () => {

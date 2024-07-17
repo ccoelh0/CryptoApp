@@ -3,3 +3,4 @@
 * Agregar docker
 * Agregar logger
 * env
+* enviar postman

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import CryptoService from "../services/crypto.service";
 import { ICurrencyDTO } from "../dto/crypto.dto";
-import config from "../config/config";
+import config from "../config/env";
 import { tryCatch } from "../lib/handleError";
 
 const { cryptoApiKey } = config;
