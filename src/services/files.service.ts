@@ -7,6 +7,7 @@ import httpStatus from "http-status";
 
 const FOLDER = "public/files";
 const FILE_KEY = "file";
+const LIMIT_5_MB = { fileSize: 5 * 1024 * 1024 };
 
 class FileUploader {
   private uploadDir: string;
@@ -18,7 +19,7 @@ class FileUploader {
     this.upload = multer({
       storage: this.getStorage(),
       fileFilter: this.fileFilter,
-      limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+      limits: LIMIT_5_MB,
     });
   }
 
@@ -69,12 +70,30 @@ class FileUploader {
     );
   }
 
-  public uploadFunc(): (
+  uploadFunc(): (req: Request, res: Response, next: NextFunction) => void {
+    return this.upload.single(FILE_KEY);
+  }
+
+  static validateFileKey(
     req: Request,
     res: Response,
     next: NextFunction
-  ) => void {
-    return this.upload.single(FILE_KEY);
+  ): void {
+    const upload = multer().single("file");
+
+    upload(req, res, (err: any) => {
+      if (!req.file)
+        return res.status(httpStatus.BAD_REQUEST).send({
+          error: "The form data must include a file key.",
+          success: false,
+        });
+
+      if (err)
+        return res
+          .status(httpStatus.BAD_REQUEST)
+          .send({ error: err.message, success: false });
+      return next();
+    });
   }
 }
 
