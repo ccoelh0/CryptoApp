@@ -108,8 +108,3 @@ Siguiendo esta ultima idea, y ya hablando un poco mas acerca de la arquitectura 
 - [Agustin Coelho](https://www.linkedin.com/in/agustin-coelho/)
 
 
-
-## Authors
-
-- [Agustin Coelho](https://www.linkedin.com/in/agustin-coelho/)
-
