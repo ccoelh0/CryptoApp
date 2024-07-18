@@ -73,28 +73,6 @@ class FileUploader {
   uploadFunc(): (req: Request, res: Response, next: NextFunction) => void {
     return this.upload.single(FILE_KEY);
   }
-
-  static validateFileKey(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): void {
-    const upload = multer().single("file");
-
-    upload(req, res, (err: any) => {
-      if (!req.file)
-        return res.status(httpStatus.BAD_REQUEST).send({
-          error: "The form data must include a file key.",
-          success: false,
-        });
-
-      if (err)
-        return res
-          .status(httpStatus.BAD_REQUEST)
-          .send({ error: err.message, success: false });
-      return next();
-    });
-  }
 }
 
 export default FileUploader;

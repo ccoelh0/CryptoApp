@@ -1,6 +1,5 @@
-* Agregar eslint
-* Agregar test
 * Agregar docker
-* Agregar logger
-* env
+* Agregar logger - OK
+* env - OK
 * enviar postman
+* middlewares - ok 
