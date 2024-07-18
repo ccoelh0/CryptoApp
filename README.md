@@ -90,6 +90,22 @@ Some of the features of this projects are
 
 Aca me permito hablar en espaniol para expresarme mejor. 
 
+Pensando un poco como seguir con esta idea, creo que lo mejor seria separar estos dos servicios (cotizacion de cryptos y guardado de documentos) en un microservicio cada uno, dado que esto permitiria: 
+
+- Que cada servicio escale por su lado y con su propia complejidad
+- Mas facil de mantener cada uno
+- Separacion de funcionalidades 
+
+Por otro lado, entiendo que la idea principal de el guardado de archivos (quizas me equivoco) es para validar identidad y demas. En este caso este aspecto se podria cubrir integrando distintas apis/bibliotecas disponibles, algunas de las que estuve revisando son: AWS Rekognition, Opencv, o Microsoft Azure Cognitive Services (Face API)
+
+Con respecto a la parte de crypto, un feature interesante relacionado con Takenos seria incluir la compra/venta de cryptos en la plataforma. Este servicio creado podria ser el puntapie para desarrollar esto mismo. 
+
+Siguiendo esta ultima idea, y ya hablando un poco mas acerca de la arquitectura del proyecto, creo que la mejor base de datos para guardar el registro de compra/venta de las transacciones realizadas seria una nosql db como Mongo o Dynamo si se usa AWS (debido a la compatibilidad y escalabilidad).
+
+
+## Authors
+
+- [Agustin Coelho](https://www.linkedin.com/in/agustin-coelho/)
 
 
 
