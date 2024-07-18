@@ -6,7 +6,6 @@ This is a microservice created with Node, Typescript and Express, that is respon
 * Arrange an endpoint to send images or pdf and save them in a public folder.
 
 
-
 ## API Reference
 
 ### Crypto
