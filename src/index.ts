@@ -10,9 +10,13 @@ import logger from "./lib/logger";
 const app = express();
 
 app.use(helmet());
+
 app.use(cors());
+
 app.options("*", cors());
+
 app.use(express.urlencoded({ extended: true }));
+
 app.use(xss());
 
 app.use((req, _res, next) => {
