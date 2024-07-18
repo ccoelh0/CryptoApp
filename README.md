@@ -17,16 +17,31 @@ This is a microservice created with Node, Typescript and Express, that is respon
   GET /api/v1/crypto/top-currencys-in-usd
 ```
 
+##### cURL
+```
+curl --location 'localhost:3001/api/v1/crypto/top-currencys-in-usd'
+```
+
 #### Get top currencys in ars
 
 ```http
   GET /api/v1/crypto/top-currencys-in-ars
 ```
 
+##### cURL
+```
+curl --location 'localhost:3001/api/v1/crypto/top-currencys-in-ars'
+```
+
 #### Get currency
 
 ```http
   GET /api/v1/crypto/get-crypto-by-name?name=${value}
+```
+
+##### cURL
+```
+curl --location 'localhost:3001/api/v1/crypto/get-crypto-by-name?name=solana'
 ```
 
 
@@ -36,6 +51,12 @@ This is a microservice created with Node, Typescript and Express, that is respon
 
 ```http
   POST /api/v1/files/save-file
+```
+
+#### cURL
+```
+curl --location 'localhost:3001/api/v1/files/save-file' \
+--form 'file=@"postman-cloud:///1ef43ea0-d3bd-4d10-8852-31d239a28991"'
 ```
 
 | Parameter | Type     | Description                       |
@@ -70,6 +91,7 @@ To deploy this project run
 Also, you can do: 
 
 ```bash
+  docker build -t image-name .
   docker run -p 3000:3000 image-name
 ```
 
